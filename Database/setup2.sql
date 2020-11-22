@@ -26,16 +26,3 @@ begin
 	select 0, train_id, d, seat_cost, no_of_seats, 0 from train;
 end $$
 delimiter ;
-
--- call t_status_creator("2020-11-09");
--- call t_status_creator("2020-11-10");
--- call t_status_creator("2020-11-11");
--- call t_status_creator("2020-11-12");
--- call t_status_creator("2020-11-13");
--- call t_status_creator("2020-11-14");
--- call t_status_creator("2020-11-15");
--- call t_status_creator("2020-11-16");
--- call t_status_creator("2020-11-17");
--- call t_status_creator("2020-11-18");
--- call t_status_creator("2020-11-19");
--- call t_status_creator("2020-11-20");

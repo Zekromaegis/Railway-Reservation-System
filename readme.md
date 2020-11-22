@@ -1,9 +1,14 @@
-# Setup Instructions
+# Railway Reservation System
+
+## Setup Instructions
+
+### Assumptions
 The Setup instructions assumes that,
 - the name of database is "railway_miniproject".
 - django's username and password is "django_railways" and "railways".
 - To change the above assumptions, you will need to change the database/username/password in "Database\setup.sql" and "RailReserve\db_config.cnf".
 
+### Steps
 1. Open command prompt on project's root.
 2. Setup a Python Virtual Enviroment ( https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments ) and activate it. (Optional but Recommended)
 3. Install all the requirements by running command "python -m pip install -r requirements.txt"
@@ -13,6 +18,9 @@ The Setup instructions assumes that,
 7. Run "python manage.py migrate".
 8. Run "Database\setup2.sql" on your MySQL Workbench / Command Prompt.
 9. Import "Database\tables\\*" to their respective Tables in your database. ( https://www.mysqltutorial.org/import-csv-file-mysql-table/ ).
-10. Run "python manage.py createsuperuser".
-11. Run "python manage.py runserver".
-12. The Django server should start on localhost. Open the localhost in a Web Browser. The site is located on {server}/railways/
+10. Do One of the Following,
+    1. Run "Database\setup3.sql" to create example Train Status' for today and next 10 days. (Better as an example. Allows you to book tickets for today and next 10 days only. To book more tickets, setup an event as per "Database\setup4.sql" or manually call t_status_creator in your MySQL Workbench / Command Prompt.)
+    2. Run "Database\setup4.sql" to create example Train Status' for today and an event to add new status daily.
+11. Run "python manage.py createsuperuser".
+12. Run "python manage.py runserver".
+13. The Django server should start on localhost. Open the localhost in a Web Browser. The site is located on {server address}/railways/
