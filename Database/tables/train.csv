@@ -1,0 +1,9 @@
+train_id,train_type,train_name,no_of_seats,start_time,end_time,seat_cost,end_station,start_station
+1,S,"Gujarat Mail",100,12:00:00.000000,18:00:00.000000,1000,2,3
+2,S,"Gujarat Mail Reverse",100,00:00:00.000000,06:00:00.000000,1000,3,2
+3,C,"Delhi Express",70,13:00:00.000000,23:00:00.000000,1300,4,2
+4,C,"Ajanta Express",50,12:30:00.000000,23:50:00.000000,900,1,6
+5,C,"Ajanta Express R",50,12:30:00.000000,23:50:00.000000,750,6,1
+6,S,"Dakshin Express",40,00:00:00.000000,18:00:00.000000,2500,6,4
+7,S,"Dakshin Express R",40,22:00:00.000000,14:00:00.000000,2500,4,6
+8,C,"Delhi Express R",40,12:00:00.000000,23:50:00.000000,1300,2,4

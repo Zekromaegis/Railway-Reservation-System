@@ -1,0 +1,62 @@
+{% load static %}
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'railwayapp/base.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/card.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/form.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/table.css' %}">
+    </head>
+    <body>
+        {% include "railwayapp/navbar.html" %}
+        <table class="styled-table card center" style="top: 20%;">
+            <thead>
+                <tr>
+                    <th>Train Name</th>
+                    <th>Start Station</th>
+                    <th>End Station</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Seat Cost</th>
+                    <th>Departure Date</th>
+                    <th>ticket Status</th>
+                </tr>
+            </thead>
+            <tbody id="history_table">
+            </tbody>
+        </table>
+        <script>
+            axios({
+                method: 'get',
+                url: "{% url 'railwayapp:api-history' %}",
+            })
+            .then(function(response) {
+                if (response.status == 200) {
+                    console.log(response);
+                    $.each(response.data, function(i, item) {
+                        var $tr = $('<tr>').append(
+                            $('<td>').text(item.trainstatus_id.train.train_name),
+                            $('<td>').text(item.trainstatus_id.train.start_station.station_name),
+                            $('<td>').text(item.trainstatus_id.train.end_station.station_name),
+                            $('<td>').text(item.trainstatus_id.train.start_time),
+                            $('<td>').text(item.trainstatus_id.train.end_time),
+                            $('<td>').text("Rs. " + item.seat_cost),
+                            $('<td>').text(item.trainstatus_id.departure_date),
+                            $('<td>').text(() => {
+                                if (item.ticket_status == 'C') return "Confirmed";
+                                else return "Waiting";
+                            })
+                        );
+                        $tr.appendTo('#history_table');
+                    });
+                }
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
+        </script>
+    </body>
+</html>

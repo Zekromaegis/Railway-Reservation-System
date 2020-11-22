@@ -1,0 +1,84 @@
+{% load static %}
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'railwayapp/base.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/card.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/form.css' %}">
+    </head>
+    <body>
+        {% include "railwayapp/navbar.html" %}
+        
+        <form id="loginform">
+            <div class="card center">
+                <h1>Register</h1>
+
+                <label for="uname">Username</label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+
+                <label for="current-password">Password</label>
+                <input type="password" placeholder="Enter Password" name="current-password" id="current-password" required>
+                   
+                <label for="fname">First name</label>
+                <input type="text" placeholder="Enter First name" name="fname" id="fname" required>
+
+                <label for="lname">Last name</label>
+                <input type="text" placeholder="Enter Last name" name="lname" id="lname" required>
+
+                <label for="ename">Email</label>
+                <input type="email" placeholder="Enter Email" name="ename" id="ename" required>
+
+                <label for="gender">Gender</label>
+                <select class="form-control" name="gender" id="gender">
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                    <option value="2">Other</option>
+                </select>
+
+                <input type="submit" value="Login">
+            </div>
+        </form>
+
+        <script>
+            $("#loginform").submit(function(e){
+                e.preventDefault();
+                var username = event.target["uname"].value;
+
+                var bodyFormData = {
+                    'username' : username,
+                    'password' : event.target["current-password"].value,
+                    'first_name' : event.target["fname"].value,
+                    'last_name' : event.target["lname"].value,
+                    'email' : event.target["ename"].value,
+                    'profile' : {
+                        "gender": event.target["gender"].value
+                    }
+                }
+
+                axios({
+                    method: 'post',
+                    url: "{% url 'railwayapp:api-register' %}",
+                    data: bodyFormData,
+                })
+                .then(function (response) {
+                    if (response.status == 201) {
+                        console.log(response.config.data);
+                        axios.defaults.headers.common['Authorization'] = response.data['token'];
+                        localStorage.setItem('token', response.data['token']);
+                        localStorage.setItem('username', username);
+                        window.location = "{% url 'railwayapp:mainpage' %}"
+                    }
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
+                
+                return false;
+            });
+        </script>
+
+    </body>
+</html>

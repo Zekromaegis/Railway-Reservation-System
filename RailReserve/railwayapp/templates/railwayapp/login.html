@@ -1,0 +1,64 @@
+{% load static %}
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'railwayapp/base.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/navbar.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/card.css' %}">
+        <link rel="stylesheet" href="{% static 'railwayapp/form.css' %}">
+    </head>
+    <body>
+        {% include "railwayapp/navbar.html" %}
+        
+        <form id="loginform">
+            <div class="card center">
+                <h1>Login</h1>
+
+                <label for="uname">Username</label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+
+                <label for="current-password">Password</label>
+                <input type="password" placeholder="Enter Password" name="current-password" id="current-password" required>
+                    
+                <input type="submit" value="Login">
+            </div>
+        </form>
+
+        <script>
+            $("#loginform").submit(function(e){
+                e.preventDefault();
+
+                var bodyFormData = new FormData();
+                var username = event.target["uname"].value;
+                bodyFormData.append('username',username);
+                bodyFormData.append('password',event.target["current-password"].value);
+
+                axios({
+                    method: 'post',
+                    url: "{% url 'railwayapp:api-login' %}",
+                    data: bodyFormData,
+                    // headers: {
+                    //     "Content-Type": "application/x-www-form-urlencoded",
+                    // },
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        console.log(response.config.data);
+                        axios.defaults.headers.common['Authorization'] = response.data['token'];
+                        localStorage.setItem('token', response.data['token']);
+                        localStorage.setItem('username', username);
+                        window.location = "{% url 'railwayapp:mainpage' %}"
+                    }
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
+                
+                return false;
+            });
+        </script>
+
+    </body>
+</html>

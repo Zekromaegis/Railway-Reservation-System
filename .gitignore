@@ -1,0 +1,8 @@
+/env
+/.vscode
+__pycache__
+RailReserve/staticcdn
+/hist.txt
+/DBMS_miniproj_report.docx
+migrations
+/Database/*.drawio

@@ -1,0 +1,5 @@
+[client]
+database = railway_miniproject
+user = django_railways
+password = railways
+default-character-set = utf8

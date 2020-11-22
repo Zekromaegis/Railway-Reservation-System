@@ -1,0 +1,58 @@
+<nav>
+    <ul>
+        <li><a class="logo" href="#">
+            <span class="fa fa-train"></span> RRS
+        </a></li>
+        <li><a class="active" href="{% url 'railwayapp:mainpage' %}">Home</a></li>
+        <li><a href="{% url 'railwayapp:schedulepage' %}">Schedule</a></li>
+        <li><a href="#">About</a></li>
+    </ul>
+
+    <ul id="no-login-part" class="to-right">
+        <li><a href="{% url 'railwayapp:register' %}">
+            <span class="fa fa-fw fa-user"></span> Sign-Up
+        </a></li>
+        <li><a href="{% url 'railwayapp:login' %}">
+            <span class="fa fa-fw fa-sign-in"></span> Login
+        </a></li>
+    </ul>
+
+    <ul id="login-part" class="to-right">
+        <li><a id='user-nav-area' href="{% url 'railwayapp:history' %}">
+            Hello
+        </a></li>
+        <li><a id='logout-area' href="{% url 'railwayapp:logout' %}">
+            <span class="fa fa-fw fa-sign-out"></span> Logout
+        </a></li>
+    </ul>
+</nav>
+
+<script>
+    if (localStorage.getItem('token') !== null) {
+        console.log(localStorage.getItem('token'));
+        $('#login-part').show();
+        $('#no-login-part').hide();
+        axios.defaults.headers.common['Authorization'] = "Token " + localStorage.getItem('token');
+        var username = localStorage.getItem('username');
+        if (username !== null) $('#user-nav-area').text("Hello, " + username);
+
+        // axios.interceptors.request.use(function (config) {
+        //     config.headers.Authorization =  "Token " + localStorage.getItem('token');
+        //     return config;
+        // });
+    }
+    else
+    {
+        $('#no-login-part').show();
+        $('#login-part').hide();
+    }
+
+    // $(document).ready(function() {
+    //     $('logout-area').click(function () {
+    //         localStorage.removeItem('token');
+    //         console.log(localStorage.getItem('token'));
+    //         localStorage.removeItem('username');
+    //         axios.defaults.headers.common['Authorization'] = null;
+    //     });
+    //     });
+</script>

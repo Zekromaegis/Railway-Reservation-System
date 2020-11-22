@@ -1,0 +1,42 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.815);
+    background-color: #f2f2f2;
+    /* text-align: center; */
+}
+
+.left {
+    float: left;
+    margin: 8% 8%;
+    width: 25%;
+    padding: 1em;
+}
+
+.right {
+    /* float: right; */
+    margin: 8% 8%;
+    /* width: %; */
+    padding: 1em;
+    margin-right: 8%;
+}
+
+.right2 {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+}
+
+.card:hover {
+    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.83);
+}
+
+.translucent {
+    background-color: #f2f2f2e2;
+}
