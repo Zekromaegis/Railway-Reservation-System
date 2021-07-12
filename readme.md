@@ -2,6 +2,8 @@
 
 Railway Reservation System is a Django - MySQL based system with a Website frontend to facilitate automatic, validated and error free purchase, reservation and transaction of train tickets. It also allows users to search for and view details about Trains and their Routes.
 
+Check [The Project Report](Miniproj_report.pdf) for implementation screenshots.
+
 ## Setup Instructions
 
 ### Assumptions
